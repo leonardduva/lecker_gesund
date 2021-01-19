@@ -16,11 +16,11 @@ class UserModelNotifier with ChangeNotifier {
     _userModel = userModel;
     i++;
     notifyListeners();
-    print('after set ${_userModel?.username}');
-    print('after set ${_userModel?.email}');
-    print('after set ${_userModel?.uid}');
-    print('after set ${_userModel?.photoUrl}');
-    print('after i $i');
-    print('newUser after set ${userModel?.username}');
+    // print('after set ${_userModel?.username}');
+    // print('after set ${_userModel?.email}');
+    // print('after set ${_userModel?.uid}');
+    // print('after set ${_userModel?.photoUrl}');
+    // print('after i $i');
+    // print('newUser after set ${userModel?.username}');
   }
 }

@@ -46,7 +46,7 @@ class _HomeState extends State<Home> {
     UserModel userModel = context.watch<UserModelNotifier>().userModel;
     var i = context.watch<UserModelNotifier>();
     print(userModel?.username);
-    print(i.i);
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       key: _scaffoldKey,
