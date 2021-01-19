@@ -1,6 +1,6 @@
 # lecker_gesund
 
-A new Flutter application.
+A Cooking Flutter application for saving favorite recipes.
 
 ## Getting Started
 
