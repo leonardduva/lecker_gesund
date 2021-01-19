@@ -8,12 +8,12 @@ import 'package:provider/provider.dart';
 import 'package:lecker_gesund/model/recipe_model.dart';
 import 'package:lecker_gesund/widgets/grid_recipe_card.dart';
 
-class Feed2 extends StatefulWidget {
+class FeedScreen extends StatefulWidget {
   @override
-  _Feed2State createState() => _Feed2State();
+  _FeedScreenState createState() => _FeedScreenState();
 }
 
-class _Feed2State extends State<Feed2> {
+class _FeedScreenState extends State<FeedScreen> {
   final _databaseService = DatabaseService();
   @override
   Widget build(BuildContext context) {
@@ -49,11 +49,11 @@ class _Feed2State extends State<Feed2> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            TagChip(title: 'All'),
-                            TagChip(title: 'Dinner'),
-                            TagChip(title: 'Lunch'),
-                            TagChip(title: 'Breakfast'),
-                            TagChip(title: 'Breakfast'),
+                            CategoryButton(title: 'All'),
+                            CategoryButton(title: 'Dinner'),
+                            CategoryButton(title: 'Lunch'),
+                            CategoryButton(title: 'Breakfast'),
+                            CategoryButton(title: 'Breakfast'),
                           ],
                         ),
                       ),
