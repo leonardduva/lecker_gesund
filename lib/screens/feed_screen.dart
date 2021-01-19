@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lecker_gesund/screens/details_screen.dart';
 import 'package:lecker_gesund/services/database_service.dart';
 import 'package:lecker_gesund/utils/scale_transition.dart';
+import 'package:lecker_gesund/widgets/category_button.dart';
 import 'package:lecker_gesund/widgets/recipe_card.dart';
 import 'package:provider/provider.dart';
 import 'package:lecker_gesund/model/recipe_model.dart';
@@ -132,7 +133,7 @@ class _Feed2State extends State<Feed2> {
                           title: recipeList[index].title,
                           description: recipeList[index].description,
                           time: recipeList[index].time,
-                          image: recipeList[index].imageUrl,
+                          image: recipeList[index]?.imageUrl,
                           onTap: () {
                             Navigator.push(
                               context,
@@ -152,37 +153,5 @@ class _Feed2State extends State<Feed2> {
         : Center(
             child: CircularProgressIndicator(),
           );
-  }
-}
-
-////TODO:refactor
-class TagChip extends StatelessWidget {
-  final String title;
-  const TagChip({
-    this.title,
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    bool selected = false;
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: FilterChip(
-          backgroundColor: Color.fromRGBO(217, 217, 217, 1),
-          disabledColor: Colors.transparent,
-          showCheckmark: true,
-          selected: selected,
-          selectedColor: Colors.teal[100],
-          label: Container(
-            height: 45.0,
-            child: Center(
-              child: Text(title),
-            ),
-          ),
-          onSelected: (bool value) {
-            selected = !selected;
-          }),
-    );
   }
 }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:lecker_gesund/model/recipe_model.dart';
 import 'package:lecker_gesund/model/user_model.dart';
 import 'package:lecker_gesund/screens/intro_screen.dart';
-import 'package:lecker_gesund/services/Notifiers/user_model_notifier.dart';
 import 'package:lecker_gesund/services/database_service.dart';
 import 'package:lecker_gesund/utils/theme_notifyer.dart';
 import 'package:provider/provider.dart';

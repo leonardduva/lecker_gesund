@@ -70,7 +70,7 @@ class DetailsScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(recipeModel.title,
+                          Text(capitalizeFirst(recipeModel.title),
                               style: Theme.of(context).textTheme.headline4),
                           SizedBox(height: 8),
                           Row(
@@ -152,33 +152,36 @@ class DetailsScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(height: 48),
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 0.5),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Center(
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text(
-                                        "Favorite",
-                                        style:
-                                            Theme.of(context).textTheme.button,
-                                      ),
-                                      SizedBox(width: 10),
-                                      Icon(
-                                        Icons.favorite_border,
-                                        color: Theme.of(context).accentColor,
-                                      ),
-                                    ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(width: 0.5),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
-                                ),
-                              )
-                            ],
+                                  child: Center(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Text(
+                                          "Favorite",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .button,
+                                        ),
+                                        SizedBox(width: 10),
+                                        Icon(
+                                          Icons.favorite_border,
+                                          color: Theme.of(context).accentColor,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           )
                         ],
                       )
