@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "333685220359",
+    "firebase_url": "https://lecker-gesund.firebaseio.com",
+    "project_id": "lecker-gesund",
+    "storage_bucket": "lecker-gesund.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333685220359:android:fcb8a392479eacb28276a2",
+        "android_client_info": {
+          "package_name": "de.duvasolutions.lecker_gesund"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333685220359-octg4er66t1t0k6eetelhnv1p5838e0m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBvm72BL4QHc0f35a2WxGdSTf7knocxjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333685220359-octg4er66t1t0k6eetelhnv1p5838e0m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "333685220359-1djelcnl9r3ij9qojdf1b0n5ra9egpur.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.duvasolutions.lecker-gesund"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
