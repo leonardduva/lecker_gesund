@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class GradientButton extends StatefulWidget {
   GradientButton({
-    this.command,
+    this.onClicked,
   });
 
-  final Function command;
+  final Function onClicked;
 
   @override
   _GradientButtonState createState() => _GradientButtonState();
@@ -17,7 +17,7 @@ class _GradientButtonState extends State<GradientButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.command,
+      onTap: widget.onClicked,
       onTapDown: (_) {
         setState(() {
           isTapped = true;
@@ -69,5 +69,3 @@ class _GradientButtonState extends State<GradientButton> {
     );
   }
 }
-// background-color #7cffcb;
-// background-image linear-gradient(315deg, #7cffcb 0%, #74f2ce 74%);background-image: linear-gradient( 135deg, #70F570 10%, #49C628 100%);

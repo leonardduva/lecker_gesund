@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:lecker_gesund/model/user_model.dart';
-import 'package:lecker_gesund/services/Notifiers/user_model_notifier.dart';
 import 'package:lecker_gesund/utils/strings_utils.dart';
 import 'package:lecker_gesund/widgets/gradient_button.dart';
 import 'package:provider/provider.dart';
 import 'package:lecker_gesund/services/auth_service.dart';
-import 'package:lecker_gesund/services/auth_service.dart';
-
 import 'signup_screen.dart';
 import 'home.dart';
 
@@ -25,6 +21,7 @@ class _LogInScreenState extends State<LogInScreen> {
   bool isLoading = false;
 
   String errorText = '';
+  //TODO: implement success message
   String successText = '';
 
   dynamic borderShape = RoundedRectangleBorder(
@@ -108,7 +105,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                         Theme.of(context).primaryColor),
                                   )
                                 : GradientButton(
-                                    command: () {
+                                    onClicked: () {
                                       if (_formKey.currentState.validate()) {
                                         setState(() {
                                           isLoading = true;
@@ -176,7 +173,9 @@ class _LogInScreenState extends State<LogInScreen> {
                       Buttons.Google,
                       shape: borderShape,
                       text: "Log in with Google",
-                      onPressed: () {},
+                      onPressed: () {
+                        //TODO: implement google login
+                      },
                     )),
                 Padding(
                     padding: EdgeInsets.all(5.0),
@@ -184,7 +183,9 @@ class _LogInScreenState extends State<LogInScreen> {
                       Buttons.Apple,
                       shape: borderShape,
                       text: "Log in with Apple",
-                      onPressed: () {},
+                      onPressed: () {
+                        //TODO: implement apple login
+                      },
                     )),
                 Row(
                   children: <Widget>[

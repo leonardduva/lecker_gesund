@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lecker_gesund/model/user_model.dart';
 import 'package:lecker_gesund/services/Notifiers/user_model_notifier.dart';
-
 import 'package:lecker_gesund/utils/constants.dart';
 
 class AuthService extends ChangeNotifier {
@@ -111,6 +110,7 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+//TODO: implement login user initialization
   initializeCurrentUser() async {
     DocumentSnapshot snapshot =
         await _usersRef.doc(_auth.currentUser.uid).get();
@@ -118,10 +118,7 @@ class AuthService extends ChangeNotifier {
     UserModel userModel = UserModel.fromJson(snapshot.data());
 
     if (userModel != null) {
-      _userModelNotifier.prints();
-      print(userModel.email);
       _userModelNotifier.setUserModel(userModel);
-      print(userModel.email);
     }
   }
 }

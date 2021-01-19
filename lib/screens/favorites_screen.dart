@@ -11,10 +11,10 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
-    final List favRecipeList = null; //Provider.of<List>(context);
+    final List favRecipeList = Provider.of<List>(context);
     return favRecipeList != null
         ? Container(
-            child: Center(child: Text('{favRecipeList[0].recipeId}')),
+            child: Center(child: Text('${favRecipeList[0]?.recipeId}')),
           )
         : Center(
             child: CircularProgressIndicator(),

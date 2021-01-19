@@ -21,12 +21,12 @@ void main() async {
         ChangeNotifierProvider<AppThemeNotifier>(
             create: (_) => AppThemeNotifier()),
         ChangeNotifierProvider<AuthService>(create: (_) => AuthService()),
-        ChangeNotifierProvider<UserModelNotifier>(
-            create: (_) => UserModelNotifier()),
+        // ChangeNotifierProvider<UserModelNotifier>(
+        //     create: (_) => UserModelNotifier()),
         StreamProvider<User>.value(value: AuthService().user),
         StreamProvider<List<RecipeModel>>.value(
             value: DatabaseService().recipes),
-        // StreamProvider<List>.value(value: DatabaseService().favRecipes),
+        StreamProvider<List>.value(value: DatabaseService().favRecipes),
         FutureProvider<UserModel>(create: (_) => DatabaseService().userModel),
       ],
       child: MyApp(),
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'lecker&gesund',
+      title: 'lecker+gesund',
       theme: context.watch<AppThemeNotifier>().isDarkModeOn
           ? AppTheme.darkTheme
           : AppTheme.lightTheme,

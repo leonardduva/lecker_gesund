@@ -5,8 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:lecker_gesund/model/user_model.dart';
 import 'package:lecker_gesund/screens/add_screen.dart';
 import 'package:lecker_gesund/screens/favorites_screen.dart';
-import 'package:lecker_gesund/services/Notifiers/user_model_notifier.dart';
-import 'package:lecker_gesund/services/auth_service.dart';
 import 'package:lecker_gesund/widgets/header.dart';
 import 'package:provider/provider.dart';
 import 'feed_screen.dart';
@@ -29,31 +27,19 @@ class _HomeState extends State<Home> {
     Text('this widget exist only for index momentarily'),
     FavoritesScreen(),
   ];
-  @override
-  void initState() {
-    super.initState();
-    awaitinitializeCurrentUser();
-  }
-
-  void awaitinitializeCurrentUser() async {
-    await context.read<AuthService>().initializeCurrentUser();
-  }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     AppConfig _ac = AppConfig(context);
-    UserModel userModel = context.watch<UserModelNotifier>().userModel;
-    var i = context.watch<UserModelNotifier>();
-    print(userModel?.username);
+    UserModel userModel = context.watch<UserModel>();
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       key: _scaffoldKey,
       appBar: Header(
-        title: userModel != null
-            ? '${capitalizeFirst(userModel.username)}'
-            : '${i.i}',
+        title:
+            userModel != null ? '${capitalizeFirst(userModel.username)}' : '',
         onTap: () {
           _scaffoldKey.currentState.openEndDrawer();
         },
