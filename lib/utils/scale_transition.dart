@@ -1,3 +1,7 @@
+/* A class for creating a scaling animation
+ * page transition
+ */
+
 import 'package:flutter/material.dart';
 
 class ScaleRoute extends PageRouteBuilder {

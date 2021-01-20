@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lecker_gesund/model/recipe_model.dart';
-import 'package:lecker_gesund/model/user_model.dart';
+import 'package:lecker_gesund/models/recipe_model.dart';
+import 'package:lecker_gesund/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class DatabaseService {
@@ -27,9 +27,10 @@ class DatabaseService {
         .toList());
   }
 
+//_auth?.currentUser?.uid ??
   Stream<List> get favRecipes {
     return _favRecipesRef
-        .doc(_auth?.currentUser?.uid ?? 'vy59q4PyuHMpIPhsTicfNyTYW5g2')
+        .doc(_auth?.currentUser?.uid ?? 'oXn9IqjIFPZduTigSH9KIhUUfGS2')
         .collection('recipesList')
         .snapshots()
         .map((event) => event.docs
@@ -39,6 +40,7 @@ class DatabaseService {
   }
 
   //Create recipe Firebase function
+  // TODO:make an object to JSON conversion function
   Future<void> addRecipe({
     String imageUrl,
     String title,
@@ -62,6 +64,7 @@ class DatabaseService {
             "people": people,
             "recipeId": recipeId,
             "ownerId": _auth.currentUser.uid,
+            "liked": false,
           })
           .then((value) => print("Recipe Added to Database"))
           .catchError((error) => print("Failed to add recipe: $error"));
@@ -76,14 +79,9 @@ class DatabaseService {
   }
 
   //Create Fav Recipe Firebase function
+  // TODO:make an object to JSON conversion function
   Future<void> addFavoriteRecipe({
-    String imageUrl,
-    String title,
-    String ingredients,
-    String description,
-    String time,
-    String people,
-    String recipeId,
+    RecipeModel recipeModel,
     ValueChanged<String> onError,
     VoidCallback onSuccess,
   }) async {
@@ -91,18 +89,27 @@ class DatabaseService {
       _favRecipesRef
           .doc(_auth.currentUser.uid)
           .collection('recipesList')
-          .doc(recipeId)
+          .doc(recipeModel.recipeId)
           .set({
-            "imageUrl": imageUrl,
-            "title": title,
-            "ingredients": ingredients,
-            "description": description,
-            "time": time,
-            "people": people,
-            "recipeId": recipeId,
+            "imageUrl": recipeModel.imageUrl,
+            "title": recipeModel.title,
+            "ingredients": recipeModel.ingredients,
+            "description": recipeModel.description,
+            "time": recipeModel.time,
+            "people": recipeModel.people,
+            "recipeId": recipeModel.recipeId,
             "ownerId": _auth.currentUser.uid,
           })
-          .then((value) => print("Recipe Added to Favorite Database"))
+          .then((value) => print("Recipe Added to Favorites"))
+          .catchError((error) => print("Failed to add recipe: $error"));
+
+      _recipesRef
+          .doc(recipeModel.recipeId)
+          .update({
+            'liked': true,
+            'usersFav': FieldValue.arrayUnion([_auth.currentUser.uid])
+          })
+          .then((value) => print("UserFavs Added "))
           .catchError((error) => print("Failed to add recipe: $error"));
 
       onSuccess();
@@ -114,14 +121,18 @@ class DatabaseService {
     }
   }
 
+  bool checkIfFavList(recipeId) {
+    bool check = _favRecipesRef
+            .doc(_auth.currentUser.uid)
+            .collection('recipesList')
+            .doc(recipeId) !=
+        null;
+    print(check);
+    return check;
+  }
+
   //delete Fav Recipe Firebase function
   Future<void> delFavoriteRecipe({
-    String imageUrl,
-    String title,
-    String ingredients,
-    String description,
-    String time,
-    String people,
     String recipeId,
     ValueChanged<String> onError,
     VoidCallback onSuccess,
@@ -134,7 +145,15 @@ class DatabaseService {
           .delete()
           .then((value) => print("Recipe Added to Favorite Database"))
           .catchError((error) => print("Failed to add recipe: $error"));
-
+      //TODO: remove uid from list
+      // _recipesRef
+      //     .doc(recipeId)
+      //     .update({
+      //       'liked': false,
+      //       'usersFav': FieldValue.arrayUnion([_auth.currentUser.uid])
+      //     })
+      //     .then((value) => print("UserFavs Added "))
+      //     .catchError((error) => print("Failed to add recipe: $error"));
       onSuccess();
     } on FirebaseException catch (e) {
       onError(e.toString());

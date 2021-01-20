@@ -12,9 +12,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
     final List favRecipeList = Provider.of<List>(context);
+
     return favRecipeList != null
-        ? Container(
-            child: Center(child: Text('${favRecipeList[0]?.recipeId}')),
+        ? Column(
+            children: [
+              Center(
+                  child: favRecipeList.isEmpty
+                      ? Text('No Fvorites yet')
+                      : Text('${favRecipeList[0].title}')),
+            ],
           )
         : Center(
             child: CircularProgressIndicator(),

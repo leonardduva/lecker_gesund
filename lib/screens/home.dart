@@ -2,14 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
-import 'package:lecker_gesund/model/user_model.dart';
 import 'package:lecker_gesund/screens/add_screen.dart';
 import 'package:lecker_gesund/screens/favorites_screen.dart';
 import 'package:lecker_gesund/widgets/header.dart';
-import 'package:provider/provider.dart';
 import 'feed_screen.dart';
 import 'navigate_drawer.dart';
-import 'package:lecker_gesund/utils/strings_utils.dart';
 import 'package:lecker_gesund/utils/app_config.dart';
 
 class Home extends StatefulWidget {
@@ -24,7 +21,7 @@ class _HomeState extends State<Home> {
 
   List<Widget> _pages = [
     FeedScreen(),
-    Text('this widget exist only for index momentarily'),
+    Text('index placeholder momentarily'),
     FavoritesScreen(),
   ];
 
@@ -32,14 +29,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     AppConfig _ac = AppConfig(context);
-    UserModel userModel = context.watch<UserModel>();
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       key: _scaffoldKey,
       appBar: Header(
-        title:
-            userModel != null ? '${capitalizeFirst(userModel.username)}' : '',
         onTap: () {
           _scaffoldKey.currentState.openEndDrawer();
         },

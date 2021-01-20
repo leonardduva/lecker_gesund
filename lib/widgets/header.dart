@@ -1,17 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lecker_gesund/model/user_model.dart';
+import 'package:lecker_gesund/models/user_model.dart';
 import 'package:lecker_gesund/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class Header extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
-  final String title;
   final Function onTap;
 
   Header({
-    this.title,
     this.onTap,
     Key key,
   })  : preferredSize = Size.fromHeight(56.0),
@@ -29,7 +27,7 @@ class Header extends StatelessWidget with PreferredSizeWidget {
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Hi, $title',
+                  Text('Hi, ${userModel?.username ?? ''}',
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,

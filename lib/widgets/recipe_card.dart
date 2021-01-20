@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lecker_gesund/utils/constants.dart';
 import 'package:lecker_gesund/utils/strings_utils.dart';
-import 'package:lecker_gesund/widgets/fav_button.dart';
 
 class RecipeCard extends StatelessWidget {
   final String title;
@@ -13,7 +12,8 @@ class RecipeCard extends StatelessWidget {
   final String people;
   final Function onTap;
   final Function onFav;
-  final bool isFavExists;
+
+  final bool liked;
 
   RecipeCard(
       {this.title,
@@ -23,8 +23,8 @@ class RecipeCard extends StatelessWidget {
       this.tag,
       this.people,
       this.onTap,
-      this.isFavExists,
-      this.onFav});
+      this.onFav,
+      this.liked});
 
   @override
   Widget build(BuildContext context) {
@@ -158,10 +158,19 @@ class RecipeCard extends StatelessWidget {
             Positioned(
               right: 5,
               bottom: 5,
-              child: FavButton(
-                isFavExists: isFavExists,
+              child: IconButton(
+                icon: Icon(
+                  liked
+                      ? Icons.favorite_rounded
+                      : Icons.favorite_border_outlined,
+                  color: Theme.of(context).accentColor,
+                ),
                 onPressed: onFav,
               ),
+              // child: FavButton(
+              //   isFavExists: isFavExists,
+              //   onPressed: onFav,
+              // ),
             ),
           ],
         ),

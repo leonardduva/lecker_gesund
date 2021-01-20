@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lecker_gesund/model/user_model.dart';
+import 'package:lecker_gesund/models/user_model.dart';
 import 'package:lecker_gesund/screens/login_screen.dart';
 import 'package:lecker_gesund/services/auth_service.dart';
 import 'package:lecker_gesund/utils/app_config.dart';

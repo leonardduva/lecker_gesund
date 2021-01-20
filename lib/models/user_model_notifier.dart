@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lecker_gesund/model/user_model.dart';
+import 'package:lecker_gesund/models/user_model.dart';
 
 class UserModelNotifier with ChangeNotifier {
   UserModel _userModel;

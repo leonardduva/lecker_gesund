@@ -6,18 +6,20 @@ class RecipeModel {
   final String time;
   final String people;
   final String recipeId;
+  final List usersFav;
+  bool liked;
 
-  bool liked = false;
-
-  RecipeModel(
-      {this.imageUrl,
-      this.title,
-      this.ingredients,
-      this.description,
-      this.time,
-      this.people,
-      this.liked,
-      this.recipeId});
+  RecipeModel({
+    this.imageUrl,
+    this.title,
+    this.ingredients,
+    this.description,
+    this.time,
+    this.people,
+    this.liked,
+    this.recipeId,
+    this.usersFav,
+  });
 
   RecipeModel.fromJson(Map<String, dynamic> json)
       : imageUrl = json['imageUrl'],
@@ -26,5 +28,7 @@ class RecipeModel {
         description = json['description'],
         time = json['time'],
         people = json['people'],
-        recipeId = json['recipeId'];
+        recipeId = json['recipeId'],
+        usersFav = json['usersFav'],
+        liked = json['liked'];
 }

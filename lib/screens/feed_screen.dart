@@ -1,11 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lecker_gesund/screens/details_screen.dart';
 import 'package:lecker_gesund/services/database_service.dart';
-import 'package:lecker_gesund/utils/scale_transition.dart';
 import 'package:lecker_gesund/widgets/category_button.dart';
 import 'package:lecker_gesund/widgets/recipe_card.dart';
 import 'package:provider/provider.dart';
-import 'package:lecker_gesund/model/recipe_model.dart';
+import 'package:lecker_gesund/models/recipe_model.dart';
 import 'package:lecker_gesund/widgets/grid_recipe_card.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -15,9 +16,36 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreenState extends State<FeedScreen> {
   final _databaseService = DatabaseService();
+
   @override
   Widget build(BuildContext context) {
+    final CollectionReference _favRecipesRef =
+        FirebaseFirestore.instance.collection('favoriteRecipes');
     final List recipeList = Provider.of<List<RecipeModel>>(context);
+    final List favRecipeList = Provider.of<List>(context);
+    final userId = context.watch<User>().uid;
+
+    // checkFav() {
+    //   bool isFav;
+    //   isFav =
+    //       favRecipeList[0].recipeId == recipeList[0].recipeId ? true : false;
+    //   print('i am looking for this $isFav');
+    //   print('fav id: ${favRecipeList[0].recipeId}');
+    //   print('recipeid: ${recipeList[5].recipeId}');
+    //   print(
+    //       'document id: ${_favRecipesRef.doc(userId).collection('recipesList').doc(recipeList[5].recipeId)}');
+    // }
+    _databaseService.checkIfFavList(recipeList[0].recipeId);
+
+    bool checkIfFav(index) {
+      bool isFound;
+      for (int i = 0; i < recipeList[index].usersFav.length; i++) {
+        isFound = recipeList[index].usersFav[i] == userId ? true : false;
+      }
+      print(isFound);
+      return isFound;
+    }
+
     return recipeList != null
         ? SingleChildScrollView(
             child: Column(
@@ -80,12 +108,12 @@ class _FeedScreenState extends State<FeedScreen> {
                       itemBuilder: (context, index) {
                         return RecipeCard(
                           tag: "feedcard" + index.toString(),
-                          isFavExists: true,
-                          title: recipeList[index].title,
-                          description: recipeList[index].description,
-                          time: recipeList[index].time,
-                          image: recipeList[index].imageUrl,
-                          people: recipeList[index].people,
+                          liked: recipeList[index].liked,
+                          title: recipeList[index]?.title,
+                          description: recipeList[index]?.description,
+                          time: recipeList[index]?.time,
+                          image: recipeList[index]?.imageUrl,
+                          people: recipeList[index]?.people,
                           onTap: () {
                             // Navigator.push(
                             //   context,
@@ -97,13 +125,27 @@ class _FeedScreenState extends State<FeedScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => DetailsScreen(
-                                        recipeModel: recipeList[index],
-                                        tag: "feedcard" + index.toString(),
-                                      )),
+                                builder: (context) => DetailsScreen(
+                                  recipeModel: recipeList[index],
+                                  tag: "feedcard" + index.toString(),
+                                ),
+                              ),
                             );
                           },
-                          onFav: () {},
+                          onFav: () {
+                            if (checkIfFav(index) == false) {
+                              _databaseService.addFavoriteRecipe(
+                                recipeModel: recipeList[index],
+                                onSuccess: () {
+                                  print('added to favorites');
+                                },
+                              );
+                            }
+                            if (checkIfFav(index) == true) {
+                              _databaseService.delFavoriteRecipe(
+                                  recipeId: recipeList[index].recipeId);
+                            }
+                          },
                         );
                       },
                     ),
@@ -130,9 +172,10 @@ class _FeedScreenState extends State<FeedScreen> {
                       itemBuilder: (context, index) {
                         return GridRecipeCard(
                           tag: "gridcard" + index.toString(),
-                          title: recipeList[index].title,
-                          description: recipeList[index].description,
-                          time: recipeList[index].time,
+                          liked: recipeList[index].liked,
+                          title: recipeList[index]?.title,
+                          description: recipeList[index]?.description,
+                          time: recipeList[index]?.time,
                           image: recipeList[index]?.imageUrl,
                           onTap: () {
                             Navigator.push(
@@ -144,6 +187,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                       )),
                             );
                           },
+                          onFav: () {},
                         );
                       }),
                 ),

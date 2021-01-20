@@ -10,6 +10,8 @@ class GridRecipeCard extends StatelessWidget {
   final String time;
   final Function onTap;
   final String tag;
+  final bool liked;
+  final Function onFav;
 
   const GridRecipeCard(
       {this.title,
@@ -17,7 +19,9 @@ class GridRecipeCard extends StatelessWidget {
       this.image,
       this.time,
       this.onTap,
-      this.tag});
+      this.tag,
+      this.onFav,
+      this.liked});
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +106,12 @@ class GridRecipeCard extends StatelessWidget {
                 bottom: -5,
                 child: IconButton(
                   icon: Icon(
-                    Icons.favorite_rounded,
+                    liked
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_outlined,
                     color: Theme.of(context).accentColor,
                   ),
-                  onPressed: () {},
+                  onPressed: onFav,
                 ),
               ),
             ],
