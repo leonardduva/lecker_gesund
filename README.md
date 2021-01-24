@@ -1,8 +1,9 @@
-# lecker_gesund
+# lecker+gesund
 
 A Cooking Flutter application for saving favorite recipes.
 
 ## Objectives
+Implement:
 
 - Simple, beautiful UI Design
 - Dark Mode
