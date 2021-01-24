@@ -63,12 +63,12 @@ class RecipeCard extends StatelessWidget {
                   child: Container(
                     child: CachedNetworkImage(
                       fit: BoxFit.cover,
-                      imageUrl: image,
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) =>
                               CircularProgressIndicator(
                                   value: downloadProgress.progress),
                       errorWidget: (context, url, error) => Icon(Icons.error),
+                      imageUrl: image,
                     ),
                     height: 154,
                     width: 180,
@@ -167,10 +167,6 @@ class RecipeCard extends StatelessWidget {
                 ),
                 onPressed: onFav,
               ),
-              // child: FavButton(
-              //   isFavExists: isFavExists,
-              //   onPressed: onFav,
-              // ),
             ),
           ],
         ),

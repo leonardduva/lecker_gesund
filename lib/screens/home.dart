@@ -4,8 +4,8 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:lecker_gesund/screens/add_screen.dart';
 import 'package:lecker_gesund/screens/favorites_screen.dart';
+import 'package:lecker_gesund/screens/feed_screen.dart';
 import 'package:lecker_gesund/widgets/header.dart';
-import 'feed_screen.dart';
 import 'navigate_drawer.dart';
 import 'package:lecker_gesund/utils/app_config.dart';
 
@@ -16,11 +16,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _pageIndex = 0;
-  GlobalKey _bottomNavigationKey = GlobalKey();
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey _bottomNavigationKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Widget> _pages = [
-    FeedScreen(),
+    FeedScreen2(),
     Text('index placeholder momentarily'),
     FavoritesScreen(),
   ];
@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
-    AppConfig _ac = AppConfig(context);
+    final AppConfig _ac = AppConfig(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -79,23 +79,27 @@ class _HomeState extends State<Home> {
               _pageIndex = index;
 
               if (index == 1) {
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) => SingleChildScrollView(
-                    child: Container(
-                      height: _ac.rH(90),
-                      color: Theme.of(context).primaryColor.withOpacity(0.8),
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: AddScreen(),
-                    ),
-                  ),
-                );
+                _buildShowModalBottomSheet(context, _ac);
               }
             },
           );
         },
+      ),
+    );
+  }
+
+  Future _buildShowModalBottomSheet(BuildContext context, AppConfig _ac) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => SingleChildScrollView(
+        child: Container(
+          height: _ac.rH(90),
+          color: Theme.of(context).primaryColor.withOpacity(0.8),
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: AddScreen(),
+        ),
       ),
     );
   }

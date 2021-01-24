@@ -43,6 +43,8 @@ class Header extends StatelessWidget with PreferredSizeWidget {
               trailing: GestureDetector(
                 onTap: onTap,
                 child: Container(
+                  height: 44,
+                  width: 44,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(45.0),
                     border: Border.all(
@@ -56,10 +58,6 @@ class Header extends StatelessWidget with PreferredSizeWidget {
                     child: CachedNetworkImage(
                       fit: BoxFit.cover,
                       imageUrl: userModel?.photoUrl ?? avatarPlaceholderImage,
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) =>
-                              CircularProgressIndicator(
-                                  value: downloadProgress.progress),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),

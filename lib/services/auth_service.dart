@@ -33,7 +33,7 @@ class AuthService extends ChangeNotifier {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      print('signed Up complete');
+      print('sign Up complete');
 
       if (userCredential != null) {
         _usersRef

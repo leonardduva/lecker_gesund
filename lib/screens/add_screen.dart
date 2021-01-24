@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lecker_gesund/services/database_service.dart';
+import 'package:lecker_gesund/widgets/input_field.dart';
 import 'package:uuid/uuid.dart';
 import 'package:lecker_gesund/services/upload_image.dart';
 import 'package:lecker_gesund/utils/constants.dart';
@@ -11,18 +12,18 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-  DatabaseService databaseService = DatabaseService();
+  final _formKey = GlobalKey<FormState>();
+  final _uploadImage = UploadImage();
+  final DatabaseService databaseService = DatabaseService();
+
   TextEditingController titleController = TextEditingController();
   TextEditingController timeController = TextEditingController();
   TextEditingController peopleController = TextEditingController();
   TextEditingController ingredientsController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-  final _uploadImage = UploadImage();
 
   File _image;
   bool isUploading = false;
-  // generate recipe id
   String recipeId = Uuid().v4();
   String downloadUrl;
 
@@ -32,30 +33,7 @@ class _AddScreenState extends State<AddScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(12, 8, 12, 8),
-              color: Colors.black12,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Your Recipe',
-                    style: TextStyle(fontSize: 25, color: Colors.black),
-                  ),
-                  Spacer(),
-                  IconButton(
-                    icon: Icon(
-                      Icons.cancel_outlined,
-                      color: Theme.of(context).accentColor,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  )
-                ],
-              ),
-            ),
+            _buildUploadHeader(context),
             SizedBox(
               height: 20,
             ),
@@ -84,145 +62,56 @@ class _AddScreenState extends State<AddScreen> {
                                 )
                               : Text(''),
                         ),
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return SimpleDialog(
-                                title: Text('Upload Image'),
-                                children: <Widget>[
-                                  SimpleDialogOption(
-                                    child: Text('Image fro Camera'),
-                                    onPressed: () async {
-                                      Navigator.pop(context);
-                                      _image =
-                                          await _uploadImage.getImageCamera();
-                                      setState(() {
-                                        this._image = _image;
-                                      });
-                                    },
-                                  ),
-                                  SimpleDialogOption(
-                                    child: Text('Image fro Gallery'),
-                                    onPressed: () async {
-                                      Navigator.pop(context);
-                                      _image =
-                                          await _uploadImage.getImageGallery();
-
-                                      setState(() {
-                                        this._image = _image;
-                                      });
-                                    },
-                                  ),
-                                  SimpleDialogOption(
-                                    child: Text('Cancel'),
-                                    onPressed: () => Navigator.pop(context),
-                                  )
-                                ],
-                              );
-                            },
-                          );
+                        onTap: () async {
+                          await _buildShowDialog(context);
                         },
                       ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Container(
+                        InputField(
                           width: MediaQuery.of(context).size.width * .4,
-                          child: TextFormField(
-                            controller: titleController,
-                            decoration: InputDecoration(
-                              hintText: "Title:",
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter a title';
-                              }
-                              return null;
-                            },
-                          ),
+                          controller: titleController,
+                          hintText: 'Title',
+                          validationText: 'Enter title',
                         ),
                         SizedBox(width: 10),
-                        Container(
+                        InputField(
                           width: MediaQuery.of(context).size.width * .2,
-                          child: TextFormField(
-                            controller: timeController,
-                            decoration: InputDecoration(
-                              hintText: "Time:",
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Enter time';
-                              }
-                              return null;
-                            },
-                          ),
+                          controller: timeController,
+                          hintText: 'Time',
+                          validationText: 'Enter time',
                         ),
                         SizedBox(
                           width: 10.0,
                         ),
-                        Container(
+                        InputField(
                           width: MediaQuery.of(context).size.width * .2,
-                          child: TextFormField(
-                            controller: peopleController,
-                            decoration: InputDecoration(
-                              hintText: "People:",
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Enter people';
-                              }
-                              return null;
-                            },
-                          ),
+                          validationText: 'Enter people',
+                          controller: peopleController,
+                          hintText: 'People',
                         ),
                       ],
                     ),
                     SizedBox(height: 20),
-                    Container(
-                      child: TextFormField(
-                        controller: ingredientsController,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 3,
-                        decoration: InputDecoration(
-                          labelText: 'Ingredients',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          hintText:
-                              "Seperate each by comma: 1 egg, 2 tomatoes, etc.",
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Enter ingredients';
-                          }
-                          return null;
-                        },
-                      ),
+                    InputField(
+                      controller: ingredientsController,
+                      labelText: 'Ingredients',
+                      maxLines: 2,
+                      hintText:
+                          'Seperate each by comma: 1 egg, 2 tomatoes, etc.',
+                      validationText: 'Enter ingredients',
                     ),
                     SizedBox(height: 20),
-                    Container(
-                      child: TextFormField(
-                        controller: descriptionController,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 3,
-                        decoration: InputDecoration(
-                          labelText: 'Directions',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          hintText:
-                              "Seperate each step by a comma: chop onions, boil eggs, etc.",
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter directions';
-                          }
-                          return null;
-                        },
-                      ),
-                    )
+                    InputField(
+                      controller: descriptionController,
+                      labelText: 'Directions',
+                      maxLines: 3,
+                      hintText:
+                          "Seperate each step by a comma: chop onions, boil eggs, etc.",
+                      validationText: 'Please enter directions',
+                    ),
                   ],
                 ),
               ),
@@ -243,44 +132,111 @@ class _AddScreenState extends State<AddScreen> {
               color: Theme.of(context).accentColor,
               textColor: Colors.black,
               onPressed: () async {
-                if (_formKey.currentState.validate()) {
-                  setState(() {
-                    isUploading = true;
-                  });
-                  //link placeholder image if user doesn't choose one
-                  if (_image == null) {
-                    downloadUrl = foodPlaceholderImage;
-                  } else if (_image != null) {
-                    //compress Image
-                    _image = await _uploadImage.compressImage(_image);
-                    //get download link
-                    downloadUrl =
-                        await _uploadImage.uploadImageToFirebase(_image);
-                  }
-                  //create recipe in firebase
-                  databaseService.addRecipe(
-                    title: titleController.text,
-                    time: timeController.text,
-                    people: peopleController.text,
-                    ingredients: ingredientsController.text,
-                    description: descriptionController.text,
-                    recipeId: recipeId,
-                    imageUrl: downloadUrl,
-                    onSuccess: () {
-                      print('object created');
-                      setState(() {
-                        isUploading = false;
-                      });
-                    },
-                  );
-
-                  Navigator.pop(context);
-                }
+                await handleCreate(isUploading);
               },
             )
           ],
         ),
       ),
+    );
+  }
+
+  handleCreate(bool isUploading) async {
+    if (_formKey.currentState.validate()) {
+      setState(() {
+        isUploading = true;
+      });
+      //link placeholder image if user doesn't choose one
+      if (_image == null) {
+        downloadUrl = foodPlaceholderImage;
+      } else if (_image != null) {
+        //compress Image
+        _image = await _uploadImage.compressImage(_image);
+        //get download link
+        downloadUrl = await _uploadImage.uploadImageToFirebase(_image);
+      }
+      //create recipe in firebase
+      databaseService.addRecipe(
+        title: titleController.text,
+        time: timeController.text,
+        people: peopleController.text,
+        ingredients: ingredientsController.text,
+        description: descriptionController.text,
+        recipeId: recipeId,
+        imageUrl: downloadUrl,
+        onSuccess: () {
+          print('object created');
+          setState(() {
+            isUploading = false;
+          });
+        },
+      );
+      Navigator.pop(context);
+    }
+  }
+
+  Container _buildUploadHeader(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(12, 8, 12, 8),
+      color: Colors.black12,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Your Recipe',
+            style: TextStyle(fontSize: 25, color: Colors.black),
+          ),
+          Spacer(),
+          IconButton(
+            icon: Icon(
+              Icons.cancel_outlined,
+              color: Theme.of(context).accentColor,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  _buildShowDialog(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: Text('Upload Image'),
+          children: <Widget>[
+            SimpleDialogOption(
+              child: Text('Image from Camera'),
+              onPressed: () async {
+                Navigator.pop(context);
+                _image = await _uploadImage.getImageCamera();
+                setState(() {
+                  this._image = _image;
+                });
+              },
+            ),
+            SimpleDialogOption(
+              child: Text('Image from Gallery'),
+              onPressed: () async {
+                Navigator.pop(context);
+                _image = await _uploadImage.getImageGallery();
+
+                setState(() {
+                  this._image = _image;
+                });
+              },
+            ),
+            SimpleDialogOption(
+              child: Text('Cancel'),
+              onPressed: () => Navigator.pop(context),
+            )
+          ],
+        );
+      },
     );
   }
 

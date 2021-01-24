@@ -19,7 +19,6 @@ class _LogInScreenState extends State<LogInScreen> {
   AuthService _authService = AuthService();
 
   bool isLoading = false;
-
   String errorText = '';
   //TODO: implement success message
   String successText = '';

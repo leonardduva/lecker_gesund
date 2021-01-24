@@ -37,7 +37,7 @@ class GridRecipeCard extends StatelessWidget {
                   height: 180,
                   width: 180,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(20),
                     color: Theme.of(context).primaryColor.withOpacity(0.6),
                   ),
                 ),
@@ -62,14 +62,14 @@ class GridRecipeCard extends StatelessWidget {
                                     value: downloadProgress.progress),
                         errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
-                      height: 95,
-                      width: 95,
+                      height: 100,
+                      width: 100,
                     ),
                   ),
                 ),
               ),
               Positioned(
-                bottom: 12,
+                bottom: 8,
                 left: 15,
                 child: Container(
                   //color: Colors.red,
@@ -85,7 +85,7 @@ class GridRecipeCard extends StatelessWidget {
                             fontSize:
                                 16), //Theme.of(context).textTheme.bodyText1,
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 5),
                       Container(
                         width: 110,
                         child: Text(
@@ -102,7 +102,7 @@ class GridRecipeCard extends StatelessWidget {
                 ),
               ),
               Positioned(
-                right: -5,
+                right: 0,
                 bottom: -5,
                 child: IconButton(
                   icon: Icon(

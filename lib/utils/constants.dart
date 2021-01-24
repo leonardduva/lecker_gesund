@@ -18,7 +18,7 @@ const List<Color> cardColors = [
 
 //placeholder recipe Image
 const foodPlaceholderImage =
-    'https://firebasestorage.googleapis.com/v0/b/lecker-gesund.appspot.com/o/uploads%2Fimg_20116b27-6d0c-44d2-b44d-9f83152e8dde.jpg?alt=media&token=fdf9c71d-d784-4aef-a8f0-34fbc0abdc29';
+    'https://firebasestorage.googleapis.com/v0/b/lecker-gesund.appspot.com/o/uploads%2Fimg_51ebfb75-4695-4bc4-98f2-f276cb54ceeb.jpg?alt=media&token=e0dec593-92b9-4c63-a2de-c8861ed2cd39';
 
 const avatarPlaceholderImage =
     'https://firebasestorage.googleapis.com/v0/b/lecker-gesund.appspot.com/o/uploads%2Fimg_b216580a-c87a-4971-89f8-70c3e2c3c0f2.jpg?alt=media&token=0d04fcab-47c3-4618-a809-2eede8ed22c7';

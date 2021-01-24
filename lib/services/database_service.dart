@@ -27,7 +27,6 @@ class DatabaseService {
         .toList());
   }
 
-//_auth?.currentUser?.uid ??
   Stream<List> get favRecipes {
     return _favRecipesRef
         .doc(_auth?.currentUser?.uid ?? 'oXn9IqjIFPZduTigSH9KIhUUfGS2')
@@ -53,7 +52,7 @@ class DatabaseService {
     VoidCallback onSuccess,
   }) async {
     try {
-      _recipesRef
+      await _recipesRef
           .doc(recipeId)
           .set({
             "imageUrl": imageUrl,
@@ -86,7 +85,7 @@ class DatabaseService {
     VoidCallback onSuccess,
   }) async {
     try {
-      _favRecipesRef
+      await _favRecipesRef
           .doc(_auth.currentUser.uid)
           .collection('recipesList')
           .doc(recipeModel.recipeId)
@@ -103,15 +102,6 @@ class DatabaseService {
           .then((value) => print("Recipe Added to Favorites"))
           .catchError((error) => print("Failed to add recipe: $error"));
 
-      _recipesRef
-          .doc(recipeModel.recipeId)
-          .update({
-            'liked': true,
-            'usersFav': FieldValue.arrayUnion([_auth.currentUser.uid])
-          })
-          .then((value) => print("UserFavs Added "))
-          .catchError((error) => print("Failed to add recipe: $error"));
-
       onSuccess();
     } on FirebaseException catch (e) {
       onError(e.toString());
@@ -121,14 +111,16 @@ class DatabaseService {
     }
   }
 
-  bool checkIfFavList(recipeId) {
-    bool check = _favRecipesRef
-            .doc(_auth.currentUser.uid)
-            .collection('recipesList')
-            .doc(recipeId) !=
-        null;
-    print(check);
-    return check;
+  Future<bool> checkIfFavList(recipeId) async {
+    DocumentSnapshot snapshot = await _favRecipesRef
+        .doc(_auth.currentUser.uid)
+        .collection('recipesList')
+        .doc(recipeId)
+        .get();
+    bool result = snapshot.data() != null && snapshot.data().isNotEmpty;
+
+    print(' checkifFav= $result');
+    return result;
   }
 
   //delete Fav Recipe Firebase function
@@ -138,28 +130,19 @@ class DatabaseService {
     VoidCallback onSuccess,
   }) async {
     try {
-      _favRecipesRef
+      await _favRecipesRef
           .doc(_auth.currentUser.uid)
           .collection('recipesList')
           .doc(recipeId)
           .delete()
-          .then((value) => print("Recipe Added to Favorite Database"))
-          .catchError((error) => print("Failed to add recipe: $error"));
-      //TODO: remove uid from list
-      // _recipesRef
-      //     .doc(recipeId)
-      //     .update({
-      //       'liked': false,
-      //       'usersFav': FieldValue.arrayUnion([_auth.currentUser.uid])
-      //     })
-      //     .then((value) => print("UserFavs Added "))
-      //     .catchError((error) => print("Failed to add recipe: $error"));
+          .then((value) => print("Recipe deleted from Favorite Database"))
+          .catchError((error) => print("Failed to delete recipe: $error"));
+
       onSuccess();
     } on FirebaseException catch (e) {
       onError(e.toString());
     } catch (e) {
       print(e);
-      onError(e.toString());
     }
   }
 }

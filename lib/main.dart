@@ -28,12 +28,12 @@ void main() async {
         StreamProvider<List>.value(value: DatabaseService().favRecipes),
         FutureProvider<UserModel>(create: (_) => DatabaseService().userModel),
       ],
-      child: MyApp(),
+      child: LeckerGesund(),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
+class LeckerGesund extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -6,7 +6,7 @@ class RecipeModel {
   final String time;
   final String people;
   final String recipeId;
-  final List usersFav;
+
   bool liked;
 
   RecipeModel({
@@ -18,7 +18,6 @@ class RecipeModel {
     this.people,
     this.liked,
     this.recipeId,
-    this.usersFav,
   });
 
   RecipeModel.fromJson(Map<String, dynamic> json)
@@ -29,6 +28,7 @@ class RecipeModel {
         time = json['time'],
         people = json['people'],
         recipeId = json['recipeId'],
-        usersFav = json['usersFav'],
         liked = json['liked'];
+
+  //TODO: to jason factory model
 }

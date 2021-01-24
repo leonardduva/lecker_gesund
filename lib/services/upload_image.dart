@@ -31,7 +31,7 @@ class UploadImage {
     final path = tempDir.path;
     Im.Image imageFile = Im.decodeImage(image.readAsBytesSync());
     final compressedImageFile = File('$path/img_$postId.jpg')
-      ..writeAsBytesSync(Im.encodeJpg(imageFile, quality: 85));
+      ..writeAsBytesSync(Im.encodeJpg(imageFile, quality: 50));
 
     return image = compressedImageFile;
   }
