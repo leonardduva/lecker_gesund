@@ -5,7 +5,7 @@ A Cooking Flutter application for saving favorite recipes.
 ## Objectives
 Implement:
 
-- Simple, beautiful UI Design :heavy_check_mark: `Optimize`
+- Simple, beautiful UI Design `Optimize` <input type="checkbox" disabled checked />
 - Dark Mode :heavy_check_mark: `Optimize`
     - Shared Preferences `TODO`
     
