@@ -7,12 +7,13 @@ Implement:
 
 - Simple, beautiful UI Design 'Optimize'
 - Dark Mode 'Optimize'
+    - Shared Preferences
 - Backend with Firebase
 - Simple State Managment
 
 - LogInScreen/SignUpScreen:
     - Initialize/Cache Data 'TODO'
-        - Shared Preferences
+        
     
 
 - HomeScreen: 

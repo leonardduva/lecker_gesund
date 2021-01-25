@@ -3,6 +3,7 @@ import 'package:lecker_gesund/screens/login_screen.dart';
 import 'package:lecker_gesund/services/auth_service.dart';
 import 'package:lecker_gesund/widgets/gradient_button.dart';
 
+//TODO: change Design, similiar to log in
 class EmailSignUp extends StatefulWidget {
   @override
   _EmailSignUpState createState() => _EmailSignUpState();
@@ -28,8 +29,22 @@ class _EmailSignUpState extends State<EmailSignUp> {
       body: SafeArea(
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                child: Row(
+                  children: [
+                    IconButton(
+                        icon: Icon(Icons.arrow_back_ios),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        }),
+                  ],
+                ),
+              ),
               Center(
+                heightFactor: 1.2,
                 child: Image.asset(
                   'assets/images/rsz_logo.png',
                   fit: BoxFit.fitHeight,
@@ -84,25 +99,6 @@ class _EmailSignUpState extends State<EmailSignUp> {
                       Padding(
                         padding: EdgeInsets.all(20.0),
                         child: TextFormField(
-                          controller: passwordRepeatController,
-                          decoration: InputDecoration(
-                            labelText: "Confirm password",
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                          // The validator receives the text that the user has entered.
-                          validator: (value) {
-                            if (value != passwordController.text) {
-                              return "Password doesn't match";
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: TextFormField(
                           obscureText: true,
                           controller: passwordController,
                           decoration: InputDecoration(
@@ -117,6 +113,25 @@ class _EmailSignUpState extends State<EmailSignUp> {
                               return 'Enter Password';
                             } else if (value.length < 6) {
                               return 'Password must be atleast 6 characters!';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: TextFormField(
+                          controller: passwordRepeatController,
+                          decoration: InputDecoration(
+                            labelText: "Confirm password",
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value != passwordController.text &&
+                                value.isEmpty) {
+                              return "Password doesn't match";
                             }
                             return null;
                           },
@@ -149,33 +164,6 @@ class _EmailSignUpState extends State<EmailSignUp> {
                 title: 'Sign Up',
                 onClicked: () {
                   handleSignUp();
-                  // if (_formKey.currentState.validate()) {
-                  //   setState(() {
-                  //     isLoading = true;
-                  //   });
-                  //   _authService.signUpUser(
-                  //     email: emailController.text,
-                  //     password: passwordController.text,
-                  //     username: nameController.text,
-                  //     displayName: nameController.text,
-                  //     onSuccess: () {
-                  //       isLoading = false;
-                  //       Navigator.pushReplacement(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //             builder: (context) =>
-                  //                 LogInScreen()),
-                  //       );
-                  //     },
-                  //     onError: (err) {
-                  //       setState(() {
-                  //         errorText = err;
-                  //         successText = '';
-                  //       });
-                  //       buildErrorDialog(context);
-                  //     },
-                  //   );
-                  // }
                 },
               ),
             ),
