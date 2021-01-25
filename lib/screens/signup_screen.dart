@@ -57,7 +57,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
                   child: Column(
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.all(20.0),
+                        padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                         child: TextFormField(
                           controller: nameController,
                           decoration: InputDecoration(
@@ -76,7 +76,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(20.0),
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                         child: TextFormField(
                           controller: emailController,
                           decoration: InputDecoration(
@@ -97,7 +97,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(20.0),
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                         child: TextFormField(
                           obscureText: true,
                           controller: passwordController,
@@ -119,7 +119,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(20.0),
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                         child: TextFormField(
                           controller: passwordRepeatController,
                           decoration: InputDecoration(
@@ -151,7 +151,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
 
   Padding _buildSingupButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: isLoading
           ? CircularProgressIndicator(
               valueColor:
