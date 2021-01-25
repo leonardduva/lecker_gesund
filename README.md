@@ -37,7 +37,7 @@ Implement:
 
 - DetailsScreen
     - Use Dart String Methods & Operators to manipulate data ✔︎
-    - Implement Recipe Delete & Edit Feauture `TODO`
+    - Implement Recipe Delete & Edit Feature `TODO`
 
 - Navigation Drawer:
     - Theme toggle ✔︎
