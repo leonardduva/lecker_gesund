@@ -5,14 +5,14 @@ A Cooking Flutter application for saving favorite recipes.
 ## Objectives
 Implement:
 
-- Simple, beautiful UI Design
-- Dark Mode
+- Simple, beautiful UI Design [Optimize]
+- Dark Mode [Optimize]
 - Backend with Firebase
 - Simple State Managment
 
 - HomeScreen: 
-    - Search Option
-    - Category Filter Option
+    - Search Option [TODO]
+    - Category Filter Option [TODO]
     - Featured Section
     - All Recipes Section
 
@@ -24,9 +24,11 @@ Implement:
 
 - FavoritesScreen:
     - Show Favorite Recipes
+    - Create a Meal Plan [Considering]
 
 - Navigation Drawer:
     - Theme
     - Logout
+    - Hide/Show Featured [Considering]
 
 
