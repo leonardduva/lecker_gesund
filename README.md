@@ -10,6 +10,11 @@ Implement:
 - Backend with Firebase
 - Simple State Managment
 
+- LogInScreen/SignUpScreen:
+    - Initialize/Cache Data [TODO]
+        - Shared Preferences
+    
+
 - HomeScreen: 
     - Search Option [TODO]
     - Category Filter Option [TODO]
@@ -24,7 +29,7 @@ Implement:
 
 - FavoritesScreen:
     - Show Favorite Recipes
-    - Create a Meal Plan [Considering]
+    - Create a Meal Plan Screen [Considering]
 
 - Navigation Drawer:
     - Theme
