@@ -36,7 +36,7 @@ Implement:
     - Logout
     - Hide/Show Featured `Considering`
     
-###Project Screenshots:
+### Project Screenshots:
 
 <img src="https://user-images.githubusercontent.com/45144280/105729537-a1580780-5f2d-11eb-81a1-3bcd58bbd4f3.png" width="200" /> <img src="https://user-images.githubusercontent.com/45144280/105731428-b0d85000-5f2f-11eb-9d29-95fa9d29f983.png" width="200" />
 <img src="https://user-images.githubusercontent.com/45144280/105731436-b3d34080-5f2f-11eb-8d56-5efd7cb4f3ca.png" width="200" />
