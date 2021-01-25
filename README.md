@@ -33,6 +33,10 @@ Implement:
     - Show Favorite Recipes
     - Create a Meal Plan Screen `Considering`
 
+- DetailsScreen
+    - Use Dart String Methods & Operators to manipulate data
+    - Implement Recipe Delete & Edit Feauture `TODO`
+
 - Navigation Drawer:
     - Theme
     - Logout
