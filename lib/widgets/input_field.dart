@@ -28,9 +28,6 @@ class InputField extends StatelessWidget {
         maxLines: maxLines,
         decoration: InputDecoration(
           labelText: labelText,
-          // border: OutlineInputBorder(
-          //   borderRadius: BorderRadius.circular(10.0),
-          // ),
           hintText: hintText,
         ),
         validator: (value) {

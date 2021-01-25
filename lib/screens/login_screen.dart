@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:lecker_gesund/utils/strings_utils.dart';
 import 'package:lecker_gesund/widgets/gradient_button.dart';
-import 'package:provider/provider.dart';
 import 'package:lecker_gesund/services/auth_service.dart';
 import 'signup_screen.dart';
 import 'home.dart';
@@ -14,15 +13,15 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInScreenState extends State<LogInScreen> {
   final _formKey = GlobalKey<FormState>();
+  final AuthService _authService = AuthService();
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  AuthService _authService = AuthService();
 
   bool isLoading = false;
   String errorText = '';
   //TODO: implement success message
   String successText = '';
-
   dynamic borderShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(10.0),
   );
@@ -63,7 +62,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
-                              // The validator receives the text that the user has entered.
+                              //TODO: Refactor all Validators
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return 'Enter Email Address';
@@ -85,7 +84,6 @@ class _LogInScreenState extends State<LogInScreen> {
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
-                              // The validator receives the text that the user has entered.
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return 'Enter Password';
@@ -96,71 +94,7 @@ class _LogInScreenState extends State<LogInScreen> {
                               },
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: isLoading
-                                ? CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        Theme.of(context).primaryColor),
-                                  )
-                                : GradientButton(
-                                    onClicked: () {
-                                      if (_formKey.currentState.validate()) {
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-                                        Provider.of<AuthService>(context,
-                                                listen: false)
-                                            .signInUser(
-                                          email: trim(emailController.text),
-                                          password: passwordController.text,
-                                          onSuccess: () async {
-                                            setState(() {
-                                              successText = 'welcome user';
-                                              print(successText);
-                                              errorText = '';
-                                            });
-
-                                            await _authService
-                                                .initializeCurrentUser();
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => Home()),
-                                            );
-                                          },
-                                          onError: (err) {
-                                            setState(() {
-                                              errorText = err;
-                                              successText = '';
-                                            });
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  title: Text("Error"),
-                                                  content: Text('$errorText'),
-                                                  actions: [
-                                                    FlatButton(
-                                                      child: Text("Ok"),
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                        setState(() {
-                                                          isLoading = false;
-                                                        });
-                                                      },
-                                                    )
-                                                  ],
-                                                );
-                                              },
-                                            );
-                                          },
-                                        );
-                                      }
-                                    },
-                                  ),
-                          ),
+                          _buildLoginButton(context),
                         ],
                       ),
                     ),
@@ -237,6 +171,110 @@ class _LogInScreenState extends State<LogInScreen> {
         ),
       ),
     );
+  }
+
+  Padding _buildLoginButton(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(20.0),
+      child: isLoading
+          ? CircularProgressIndicator(
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+            )
+          : GradientButton(
+              title: 'Log in',
+              onClicked: () {
+                handleLogIn();
+                // if (_formKey.currentState.validate()) {
+                //   setState(() {
+                //     isLoading = true;
+                //   });
+                //   Provider.of<AuthService>(context,
+                //           listen: false)
+                //       .signInUser(
+                //     email: trim(emailController.text),
+                //     password: passwordController.text,
+                //     onSuccess: () async {
+                //       setState(() {
+                //         successText = 'welcome user';
+                //         print(successText);
+                //         errorText = '';
+                //       });
+
+                //       //await _authService.initializeCurrentUser();
+                //       Navigator.pushReplacement(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => Home()),
+                //       );
+                //     },
+                //     onError: (err) {
+                //       setState(() {
+                //         errorText = err;
+                //         successText = '';
+                //       });
+                //       _buildAlertDialog(context);
+                //     },
+                //   );
+                // }
+              },
+            ),
+    );
+  }
+
+  Future _buildAlertDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Error"),
+          content: Text('$errorText'),
+          actions: [
+            FlatButton(
+              child: Text("Ok"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() {
+                  isLoading = false;
+                });
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  void handleLogIn() {
+    if (_formKey.currentState.validate()) {
+      setState(() {
+        isLoading = true;
+      });
+      _authService.signInUser(
+        email: trim(emailController.text),
+        password: passwordController.text,
+        onSuccess: () async {
+          setState(() {
+            successText = 'welcome user';
+            print(successText);
+            errorText = '';
+          });
+
+          //await _authService.initializeCurrentUser();
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Home()),
+          );
+        },
+        onError: (err) {
+          setState(() {
+            errorText = err;
+            successText = '';
+          });
+          _buildAlertDialog(context);
+        },
+      );
+    }
   }
 
   @override

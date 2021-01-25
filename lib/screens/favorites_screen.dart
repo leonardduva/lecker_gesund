@@ -15,7 +15,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
     final List favRecipeList = Provider.of<List>(context);
-    DatabaseService _databaseService = DatabaseService();
+    final DatabaseService _databaseService = DatabaseService();
 
     return favRecipeList != null
         ? SingleChildScrollView(
@@ -34,59 +34,55 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     ? Center(
                         child: Text('No Fvorites yet'),
                       )
-                    : Padding(
-                        padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
-                        child: Container(
-                          child: GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                            ),
-                            physics: ClampingScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: favRecipeList.length,
-                            itemBuilder: (context, index) {
-                              return GridRecipeCard(
-                                tag: "feedcard" + index.toString(),
-                                liked: true,
-                                title: favRecipeList[index]?.title,
-                                description: favRecipeList[index]?.description,
-                                time: favRecipeList[index]?.time,
-                                image: favRecipeList[index]?.imageUrl,
-                                //people: favRecipeList[index]?.people,
-                                onTap: () {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   ScaleRoute(
-                                  //       page: DetailsScreen(
-                                  //     recipeModel: recipeList[index],
-                                  //   )),
-                                  // );
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailsScreen(
-                                        recipeModel: favRecipeList[index],
-                                        tag: "feedcard" + index.toString(),
-                                      ),
-                                    ),
-                                  );
-                                },
-                                onFav: () {
-                                  _databaseService.delFavoriteRecipe(
-                                      recipeId: favRecipeList[index].recipeId);
-                                  print('recipe deleted');
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
+                    : _buildFavGrid(favRecipeList, _databaseService),
               ],
             ),
           )
         : Center(
             child: CircularProgressIndicator(),
           );
+  }
+
+  Padding _buildFavGrid(List favRecipeList, DatabaseService _databaseService) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
+      child: Container(
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+          ),
+          physics: ClampingScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: favRecipeList.length,
+          itemBuilder: (context, index) {
+            return GridRecipeCard(
+              tag: "favcard" + index.toString(),
+              liked: true,
+              title: favRecipeList[index]?.title,
+              description: favRecipeList[index]?.description,
+              time: favRecipeList[index]?.time,
+              image: favRecipeList[index]?.imageUrl,
+              //people: favRecipeList[index]?.people,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailsScreen(
+                      recipeModel: favRecipeList[index],
+                      tag: "favcard" + index.toString(),
+                    ),
+                  ),
+                );
+              },
+              onFav: () {
+                _databaseService.delFavoriteRecipe(
+                    recipeId: favRecipeList[index].recipeId);
+                print('recipe deleted');
+              },
+            );
+          },
+        ),
+      ),
+    );
   }
 }

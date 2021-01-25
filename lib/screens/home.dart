@@ -15,13 +15,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _pageIndex = 0;
   final GlobalKey _bottomNavigationKey = GlobalKey();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  int _pageIndex = 0;
   List<Widget> _pages = [
     FeedScreen2(),
-    Text('index placeholder momentarily'),
+    Text('index placeholder'),
     FavoritesScreen(),
   ];
 

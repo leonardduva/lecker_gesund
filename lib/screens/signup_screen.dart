@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:lecker_gesund/screens/login_screen.dart';
 import 'package:lecker_gesund/services/auth_service.dart';
-import 'package:provider/provider.dart';
+import 'package:lecker_gesund/widgets/gradient_button.dart';
 
 class EmailSignUp extends StatefulWidget {
   @override
@@ -13,11 +10,7 @@ class EmailSignUp extends StatefulWidget {
 
 class _EmailSignUpState extends State<EmailSignUp> {
   final _formKey = GlobalKey<FormState>();
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final DatabaseReference dbRef =
-      FirebaseDatabase.instance.reference().child("Users");
-  final CollectionReference usersRef =
-      FirebaseFirestore.instance.collection('users');
+  final AuthService _authService = AuthService();
 
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -58,7 +51,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
-                          // The validator receives the text that the user has entered.
+                          // TODO:Refactor all validators
                           validator: (value) {
                             if (value.isEmpty) {
                               return 'Enter User Name';
@@ -129,68 +122,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
                           },
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: isLoading
-                            ? CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                    Theme.of(context).primaryColor),
-                              )
-                            : Container(
-                                height: 60.0,
-                                width: double.infinity,
-                                child: RaisedButton(
-                                  child: Text(
-                                    'Submit',
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .subtitle1
-                                          .color,
-                                      //fontWeight: FontWeight.bold,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  color: Theme.of(context).accentColor,
-                                  onPressed: () {
-                                    if (_formKey.currentState.validate()) {
-                                      setState(() {
-                                        isLoading = true;
-                                      });
-                                      Provider.of<AuthService>(context,
-                                              listen: false)
-                                          .signUpUser(
-                                        email: emailController.text,
-                                        password: passwordController.text,
-                                        username: nameController.text,
-                                        displayName: nameController.text,
-                                        onSuccess: () {
-                                          isLoading = false;
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LogInScreen()),
-                                          );
-                                        },
-                                        onError: (err) {
-                                          setState(() {
-                                            errorText = err;
-                                            successText = '';
-                                          });
-                                          buildErrorDialog(context);
-                                        },
-                                      );
-
-                                      // registerToFirebase();
-                                    }
-                                  },
-                                ),
-                              ),
-                      ),
+                      _buildSingupButton(context),
                     ],
                   ),
                 ),
@@ -200,6 +132,82 @@ class _EmailSignUpState extends State<EmailSignUp> {
         ),
       ),
     );
+  }
+
+  Padding _buildSingupButton(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(20.0),
+      child: isLoading
+          ? CircularProgressIndicator(
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+            )
+          : Container(
+              height: 60.0,
+              width: double.infinity,
+              child: GradientButton(
+                title: 'Sign Up',
+                onClicked: () {
+                  handleSignUp();
+                  // if (_formKey.currentState.validate()) {
+                  //   setState(() {
+                  //     isLoading = true;
+                  //   });
+                  //   _authService.signUpUser(
+                  //     email: emailController.text,
+                  //     password: passwordController.text,
+                  //     username: nameController.text,
+                  //     displayName: nameController.text,
+                  //     onSuccess: () {
+                  //       isLoading = false;
+                  //       Navigator.pushReplacement(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: (context) =>
+                  //                 LogInScreen()),
+                  //       );
+                  //     },
+                  //     onError: (err) {
+                  //       setState(() {
+                  //         errorText = err;
+                  //         successText = '';
+                  //       });
+                  //       buildErrorDialog(context);
+                  //     },
+                  //   );
+                  // }
+                },
+              ),
+            ),
+    );
+  }
+
+  void handleSignUp() {
+    if (_formKey.currentState.validate()) {
+      setState(() {
+        isLoading = true;
+      });
+      _authService.signUpUser(
+        email: emailController.text,
+        password: passwordController.text,
+        username: nameController.text,
+        displayName: nameController.text,
+        onSuccess: () {
+          isLoading = false;
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => LogInScreen()),
+          );
+        },
+        onError: (err) {
+          setState(() {
+            errorText = err;
+            successText = '';
+          });
+          buildErrorDialog(context);
+        },
+      );
+    }
   }
 
   Future buildErrorDialog(BuildContext context) {

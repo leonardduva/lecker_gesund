@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lecker_gesund/services/database_service.dart';
+import 'package:lecker_gesund/widgets/gradient_button.dart';
 import 'package:lecker_gesund/widgets/input_field.dart';
 import 'package:uuid/uuid.dart';
 import 'package:lecker_gesund/services/upload_image.dart';
@@ -117,31 +118,31 @@ class _AddScreenState extends State<AddScreen> {
               ),
             ),
             SizedBox(height: 20),
-            MaterialButton(
-              child: isUploading
-                  ? Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                            Theme.of(context).primaryColor),
-                      ),
-                    )
-                  : Text(
-                      'Create',
-                    ),
-              color: Theme.of(context).accentColor,
-              textColor: Colors.black,
-              onPressed: () async {
-                await handleCreate(isUploading);
-              },
-            )
+            _buildCreateButton(context),
           ],
         ),
       ),
     );
   }
 
-  handleCreate(bool isUploading) async {
+  Padding _buildCreateButton(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(20.0),
+      child: isUploading
+          ? CircularProgressIndicator(
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+            )
+          : GradientButton(
+              title: 'Create',
+              onClicked: () async {
+                await _handleCreate(isUploading);
+              },
+            ),
+    );
+  }
+
+  _handleCreate(bool isUploading) async {
     if (_formKey.currentState.validate()) {
       setState(() {
         isUploading = true;

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class GradientButton extends StatefulWidget {
   GradientButton({
     this.onClicked,
+    this.title,
   });
 
   final Function onClicked;
+  final String title;
 
   @override
   _GradientButtonState createState() => _GradientButtonState();
@@ -57,7 +59,7 @@ class _GradientButtonState extends State<GradientButton> {
         ),
         child: Center(
           child: Text(
-            "Login",
+            widget.title,
             style: TextStyle(
               fontSize: 18.0,
               color: Colors.black,

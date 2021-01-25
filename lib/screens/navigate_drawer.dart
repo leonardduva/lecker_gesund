@@ -17,9 +17,11 @@ class NavigateDrawer extends StatefulWidget {
 class _NavigateDrawerState extends State<NavigateDrawer> {
   @override
   Widget build(BuildContext context) {
-    AppConfig _ac = AppConfig(context);
+    final AppConfig _ac = AppConfig(context);
     final UserModel userModel = Provider.of<UserModel>(context);
+
     double drawerSize = _ac.rH(35);
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
