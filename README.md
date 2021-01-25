@@ -6,11 +6,11 @@ A Cooking Flutter application for saving favorite recipes.
 Implement:
 
 - Simple, beautiful UI Design :heavy_check_mark: `Optimize`
-- Dark Mode `Optimize`
+- Dark Mode :heavy_check_mark: `Optimize`
     - Shared Preferences `TODO`
     
-- Backend with Firebase
-- Simple State Managment
+- Backend with Firebase :heavy_check_mark:
+- Simple State Managment :heavy_check_mark:
 
 - LogInScreen/SignUpScreen:
     - Initialize/Cache Data `TODO`
@@ -20,8 +20,8 @@ Implement:
 - HomeScreen: 
     - Search Option `TODO`
     - Category Filter Option `TODO`
-    - Featured Section
-    - All Recipes Section
+    - Featured Section :heavy_check_mark:
+    - All Recipes Section :heavy_check_mark:
 
 - AddScreen:
     - User recipe
