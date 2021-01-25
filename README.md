@@ -5,7 +5,7 @@ A Cooking Flutter application for saving favorite recipes.
 ## Objectives
 Implement:
 
-- Simple, beautiful UI Design -[x] `Optimize`
+- Simple, beautiful UI Design - [x] `Optimize`
 - Dark Mode `Optimize`
     - Shared Preferences `TODO`
     
