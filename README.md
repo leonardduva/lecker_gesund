@@ -15,6 +15,8 @@ Implement:
 - LogInScreen/SignUpScreen:
     - Initialize/Cache Data `TODO`
         - Shared Preferences
+    - Log in with Google `TODO`
+    - Log in with Apple `TODO`
     
 
 - HomeScreen: 
