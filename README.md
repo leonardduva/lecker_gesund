@@ -5,12 +5,12 @@ A Cooking Flutter application for saving favorite recipes.
 ## Objectives
 Implement:
 
-- Simple, beautiful UI Design `Optimize`  ✓✓✔︎✓✅✔️☑️
-- Dark Mode :heavy_check_mark: `Optimize`
+- Simple, beautiful UI Design `Optimize`  ✔︎
+- Dark Mode :heavy_check_mark: `Optimize` ✔︎
     - Shared Preferences `TODO`
     
-- Backend with Firebase :heavy_check_mark:
-- Simple State Managment :heavy_check_mark:
+- Backend with Firebase ✔︎
+- Simple State Managment ✔︎
 
 - LogInScreen/SignUpScreen:
     - Initialize/Cache Data `TODO`
@@ -20,26 +20,26 @@ Implement:
 - HomeScreen: 
     - Search Option `TODO`
     - Category Filter Option `TODO`
-    - Featured Section :heavy_check_mark:
-    - All Recipes Section :heavy_check_mark:
+    - Featured Section ✔︎
+    - All Recipes Section ✔︎
 
 - AddScreen:
-    - User recipe
-    - Upload foto from Camera/Gallery
-    - Compress Image 
-    - Add to Firebase
+    - User recipe ✔︎
+    - Upload foto from Camera/Gallery ✔︎
+    - Compress Image ✔︎
+    - Add to Firebase ✔︎
 
 - FavoritesScreen:
-    - Show Favorite Recipes
+    - Show Favorite Recipes ✔︎
     - Create a Meal Plan Screen `Considering`
 
 - DetailsScreen
-    - Use Dart String Methods & Operators to manipulate data
+    - Use Dart String Methods & Operators to manipulate data ✔︎
     - Implement Recipe Delete & Edit Feauture `TODO`
 
 - Navigation Drawer:
-    - Theme
-    - Logout
+    - Theme toggle ✔︎
+    - Logout ✔︎
     - Hide/Show Featured `Considering`
     
 ### Project Screenshots:
