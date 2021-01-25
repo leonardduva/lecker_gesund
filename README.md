@@ -36,6 +36,6 @@ Implement:
     - Logout
     - Hide/Show Featured 'Considering'
 
-![Simulator Screen Shot - iPhone 12 Pro - 2021-01-25 at 16 50 05](https://user-images.githubusercontent.com/45144280/105729537-a1580780-5f2d-11eb-81a1-3bcd58bbd4f3.png ){:height="20%" width="20%"}
+![Simulator Screen Shot - iPhone 12 Pro - 2021-01-25 at 16 50 05|width=100px](https://user-images.githubusercontent.com/45144280/105729537-a1580780-5f2d-11eb-81a1-3bcd58bbd4f3.png )
 
 
