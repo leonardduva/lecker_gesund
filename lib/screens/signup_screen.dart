@@ -3,7 +3,6 @@ import 'package:lecker_gesund/screens/login_screen.dart';
 import 'package:lecker_gesund/services/auth_service.dart';
 import 'package:lecker_gesund/widgets/gradient_button.dart';
 
-//TODO: change Design, similiar to log in
 class EmailSignUp extends StatefulWidget {
   @override
   _EmailSignUpState createState() => _EmailSignUpState();
@@ -129,7 +128,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
                             ),
                           ),
                           validator: (value) {
-                            if (value != passwordController.text &&
+                            if (value != passwordController.text ||
                                 value.isEmpty) {
                               return "Password doesn't match";
                             }

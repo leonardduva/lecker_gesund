@@ -7,18 +7,6 @@ class AppTheme {
     scaffoldBackgroundColor: Colors.white.withOpacity(0.85),
     primaryColor: Colors.white,
     accentColor: Color(0xff07c756),
-    appBarTheme: AppBarTheme(
-      color: Colors.teal,
-      iconTheme: IconThemeData(
-        color: Colors.white,
-      ),
-    ),
-    cardTheme: CardTheme(
-      color: Colors.teal,
-    ),
-    iconTheme: IconThemeData(
-      color: Colors.black,
-    ),
     textTheme: TextTheme(
       headline5: TextStyle(
         color: Colors.black,
@@ -45,18 +33,6 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.black,
     primaryColor: Colors.red,
-    appBarTheme: AppBarTheme(
-      color: Colors.black,
-      iconTheme: IconThemeData(
-        color: Colors.white,
-      ),
-    ),
-    cardTheme: CardTheme(
-      color: Colors.red,
-    ),
-    iconTheme: IconThemeData(
-      color: Colors.white54,
-    ),
     textTheme: TextTheme(
       headline6: TextStyle(
         color: Colors.white,

@@ -185,38 +185,6 @@ class _LogInScreenState extends State<LogInScreen> {
               title: 'Log in',
               onClicked: () {
                 handleLogIn();
-                // if (_formKey.currentState.validate()) {
-                //   setState(() {
-                //     isLoading = true;
-                //   });
-                //   Provider.of<AuthService>(context,
-                //           listen: false)
-                //       .signInUser(
-                //     email: trim(emailController.text),
-                //     password: passwordController.text,
-                //     onSuccess: () async {
-                //       setState(() {
-                //         successText = 'welcome user';
-                //         print(successText);
-                //         errorText = '';
-                //       });
-
-                //       //await _authService.initializeCurrentUser();
-                //       Navigator.pushReplacement(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (context) => Home()),
-                //       );
-                //     },
-                //     onError: (err) {
-                //       setState(() {
-                //         errorText = err;
-                //         successText = '';
-                //       });
-                //       _buildAlertDialog(context);
-                //     },
-                //   );
-                // }
               },
             ),
     );
