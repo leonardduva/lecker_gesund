@@ -4,6 +4,7 @@ A Cooking Flutter application for saving favorite recipes.
 
 ## Objectives
 Simple Architecture & Clean Code : while (coding) {`TODO`}
+
 Implement:
 
 - Simple, beautiful UI Design `Optimize`  
